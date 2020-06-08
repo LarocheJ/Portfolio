@@ -74,6 +74,7 @@ class DashboardController extends Controller
             $extension = $request->file('thumb')->getClientOriginalExtension();
             $thumbFileNameToStore = $fileName.'_'.time().'.'.$extension;
             $path = $request->file('thumb')->storeAs('public/thumbs', $thumbFileNameToStore);
+            Storage::disk('s3')->put($thumbFileNameToStore, file_get_contents($fileName));
         } else {
             $thumbFileNameToStore = 'noimage.jpg';
         }
