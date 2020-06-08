@@ -14,7 +14,7 @@ Route::get('/contact', 'ContactFormController@create')->name('contact');
 Route::post('/contact', 'ContactFormController@store')->name('contact.store');
 
 // Authentication Route - ['register' => true] to enable user registration
-Auth::routes(['register' => false]);
+Auth::routes(['register' => true]);
 
 // DashboardController Routes
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
