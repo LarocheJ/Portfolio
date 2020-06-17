@@ -23,12 +23,12 @@ class ContactFormController extends Controller
             'message' => 'required',
         ]);
 
-        $mail = Mail::to('jimmy.lar91@gmail.com')->send(new ContactFormMail($data));
+        Mail::to('jimmy.lar91@gmail.com')->send(new ContactFormMail($data));
 
-        if($mail) {
-            return redirect('contact')->with('success', 'Thank you for reaching out! I will be in touch as soon as possible!');
-        } else {
+        if(Mail::failures()) {
             return redirect('contact')->with('error', 'An error occured. Please try again later or email me at contact@jimmylaroche.com');
+        } else {
+            return redirect('contact')->with('success', 'Thank you for reaching out! I will be in touch as soon as possible!');
         }
 
     }
