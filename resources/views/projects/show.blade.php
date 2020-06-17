@@ -17,9 +17,9 @@
 
             <img class="img-fluid img-border" 
             @if($project->full && $project->full !== "noimage.jpg")
-                src="/storage/full/{{ $project->full }}" 
+                src="https://jimmylaroche-images.s3.us-west-2.amazonaws.com/{{ $project->full }}" 
             @else
-                src="/storage/thumbs/{{ $project->thumb }}" 
+                src="/storage/{{ $project->thumb }}" 
             @endif
             
             alt="Image for {{ $project->title }}">

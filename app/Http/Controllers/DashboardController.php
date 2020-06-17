@@ -67,29 +67,41 @@ class DashboardController extends Controller
             'featured' => 'nullable'
         ]);
 
-        // Handle thumb image upload
-        if($request->hasFile('thumb')){
-            $fileNameWithExt = $request->file('thumb')->getClientOriginalName();
-            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
-            $extension = $request->file('thumb')->getClientOriginalExtension();
-            $thumbFileNameToStore = $fileName.'_'.time().'.'.$extension;
-            $path = $request->file('thumb')->storeAs('public/thumbs', $thumbFileNameToStore);
-            Storage::disk('s3')->put($thumbFileNameToStore, file_get_contents($fileName));
-        } else {
-            $thumbFileNameToStore = 'noimage.jpg';
-        }
+        //Handle thumb image upload
+        // if($request->hasFile('thumb')){
+        //     $fileNameWithExt = $request->file('thumb')->getClientOriginalName();
+        //     $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+        //     $extension = $request->file('thumb')->getClientOriginalExtension();
+        //     $thumbFileNameToStore = $fileName.'_'.time().'.'.$extension;
+        //     // $path = $request->file('thumb')->storeAs('public/thumbs', $thumbFileNameToStore);
+            
+        //     // Storage::disk('s3')->put('thumbs', file_get_contents($request->file('thumb')));
+        // } else {
+        //     $thumbFileNameToStore = 'noimage.jpg';
+        // }
+
+        // $path = $request->file('thumb')->storeAs('public/thumbs', 's3');
+
+        // $thumb = Project::create([
+        //     'thumb' => basename($path),
+        //     // 'url' => ->url($path)
+        // ]);
+
+        $path = $request->file('thumb')->store('thumbs', 's3');
 
         // Handle full image upload
-        if($request->hasFile('full')){
-            $fileNameWithExt = $request->file('full')->getClientOriginalName();
-            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
-            $extension = $request->file('full')->getClientOriginalExtension();
-            $fullFileNameToStore = $fileName.'_'.time().'.'.$extension;
-            $path = $request->file('full')->storeAs('public/full', $fullFileNameToStore); 
+        // if($request->hasFile('full')){
+        //     $fileNameWithExt = $request->file('full')->getClientOriginalName();
+        //     $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+        //     $extension = $request->file('full')->getClientOriginalExtension();
+        //     $fullFileNameToStore = $fileName.'_'.time().'.'.$extension;
+        //     $path = $request->file('full')->storeAs('public/full', $fullFileNameToStore); 
 
-        } else {
-            $fullFileNameToStore = 'noimage.jpg';
-        }
+        // } else {
+        //     $fullFileNameToStore = 'noimage.jpg';
+        // }
+
+        $full_path = $request->file('full')->store('full', 's3');
 
         // Create Project
         $project = new Project;
@@ -105,7 +117,7 @@ class DashboardController extends Controller
 
         if(empty($request->input('github'))){
             $project->github = '';
-        } else {
+        } else { 
             $project->github = $request->input('github');
         }
 
@@ -119,8 +131,10 @@ class DashboardController extends Controller
         }
 
         $project->stack = $request->input('stack');
-        $project->thumb = $thumbFileNameToStore;
-        $project->full = $fullFileNameToStore;
+        // $project->thumb = $thumbFileNameToStore;
+        $project->thumb = $path;
+        // $project->full = $fullFileNameToStore;
+        $project->full = $full_path;
         
         if(empty($request->input('featured'))){
             $project->featured = 'no';

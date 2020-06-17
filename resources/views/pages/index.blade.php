@@ -32,7 +32,7 @@
                     <div class="project" data-aos="zoom-in">
 
                         <a href="{{ route('show', $project->slug ) }}">
-                            <img src="/storage/thumbs/{{ $project->thumb }}" alt="Thumbnail for {{ $project->title }}">
+                            <img src="https://jimmylaroche-images.s3.us-west-2.amazonaws.com/{{ $project->thumb }}" alt="Thumbnail for {{ $project->title }}">
                             <div class="caption">
                                 <div class="blur"></div>
                                 <div class="caption-text">
