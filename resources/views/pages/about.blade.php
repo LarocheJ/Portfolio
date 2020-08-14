@@ -56,7 +56,7 @@
                 <h2>About this Website</h2>
                 <p>I built my portfolio from scratch using a PHP framework called Laravel. I really wanted to "future proof" my portfolio by keeping the design simplistic and making it mobile friendly. 
                 </p>
-                <p>Furthermore, I wanted to make it easy to add new projects. So, I created my very own mini CMS. I implemented a system where I can dynamically add, edit and remove projects through a custom dashboard. From this dashboard, I can also see the analytical stats to see how my portfolio is performing.</p>
+                <p>Furthermore, I wanted to make it easy to add new projects. So, I created my very own mini CMS. I implemented a system where I can dynamically add, edit and remove projects through a custom dashboard.</p>
             </div>
             <div class="col-0 col-lg-6 col-md-0 col-sm-0 mt-5">
                 <img class="img-fluid img-border" src="{{ asset('img/dashboard.jpg') }}" alt="Dashboard for my portfolio">
